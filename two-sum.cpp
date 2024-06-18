@@ -1,3 +1,29 @@
+/*
+Title: Two Sum
+Link: https://leetcode.com/problems/two-sum/
+*/
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> map;
+        vector<int> output;
+
+        for(int i = 0; i < nums.size(); i++){
+            if(map.find(target - nums[i]) != map.end()){
+                output.push_back(i);
+                output.push_back(map[target-nums[i]]);
+                break;
+            }
+            else{
+                map[nums[i]] = i;
+            }
+        }
+
+        return output;
+    }
+};
+
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
