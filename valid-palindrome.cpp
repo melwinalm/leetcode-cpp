@@ -1,28 +1,29 @@
+/*
+Title: Valid Palindrome
+Link: https://leetcode.com/problems/valid-palindrome/
+*/
+
+// Naive Approach
 class Solution {
 public:
     bool isPalindrome(string s) {
-        int i = 0;
-        int j = s.size() - 1;
-        
-        while(i < j){
-            if(!isalnum(s[i])){
-                i++;
-                continue;
+        string s2;
+
+        for(char c: s){
+            if(isalnum(c)){
+                s2 += tolower(c);
             }
-            
-            if(!isalnum(s[j])){
-                j--;
-                continue;
-            }
-            
-            if(tolower(s[i]) != tolower(s[j])){
+        }
+
+        int N = s2.size();
+        for(int i = 0; i < N; i++){
+            if(s2[i] != s2[N-i-1]){
                 return false;
             }
-            
-            i++;
-            j--;
         }
-        
+
         return true;
     }
 };
+
+// 
