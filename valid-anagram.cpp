@@ -27,3 +27,23 @@ public:
         return true;
     }
 };
+
+// Using string sorting
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size() != t.size()){
+            return false;
+        }
+
+        sort(s.begin(), s.end(), [](char c1, char c2){
+            return c1 < c2;
+        });
+
+        sort(t.begin(), t.end(), [](char c1, char c2){
+            return c1 < c2;
+        });
+
+        return s == t;
+    }
+};
