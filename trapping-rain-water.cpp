@@ -38,3 +38,45 @@ public:
         return maxWater;
     }
 };
+
+// Two Pointer Approach
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int N = height.size();
+
+        if(N <= 2){
+            return 0;
+        }
+
+        int left = 1;
+        int right = N-2;
+        int maxLeft = height[0];
+        int maxRight = height[N-1];
+
+        int maxWater = 0;
+
+        while(left <= right){
+            if(maxLeft < maxRight){
+                if(height[left] < maxLeft){
+                    maxWater += maxLeft - height[left];
+                }
+                else{
+                    maxLeft = height[left];
+                }
+                left++;
+            }
+            else{
+                if(height[right] < maxRight){
+                    maxWater += maxRight - height[right];
+                }
+                else{
+                    maxRight = height[right];
+                }
+                right--;
+            }
+        }
+
+        return maxWater;
+    }
+};
