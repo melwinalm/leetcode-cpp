@@ -42,3 +42,35 @@ public:
         return output;   
     }
 };
+
+// Depth First Search
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> output;
+
+        if(!root){
+            return output;
+        }
+
+        levelOrder(output, root, 0);
+
+        return output;   
+    }
+
+    void levelOrder(vector<vector<int>>& output, TreeNode* root, int height){
+        if(!root){
+            return;
+        }
+
+        if(height == output.size()){
+            output.push_back(vector<int>{root->val});
+        }
+        else{
+            output[height].push_back(root->val);
+        }
+
+        levelOrder(output, root->left, height+1);
+        levelOrder(output, root->right, height+1);
+    }
+};
