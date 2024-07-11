@@ -56,3 +56,68 @@ public:
         return maxSoFar;
     }
 };
+
+// Using Topological Sorting
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        if(n == 1){
+            return {0};
+        }
+
+        unordered_map<int, vector<int>> adj;
+        vector<int> indegree(n);
+
+        // Forming adjacency list along with indegree count
+        for(vector<int> edge: edges){
+            int a = edge[0];
+            int b = edge[1];
+
+            adj[a].push_back(b);
+            adj[b].push_back(a);
+
+            indegree[a]++;
+            indegree[b]++;
+        }
+
+        queue<int> q;
+        
+        // Push all the nodes with indegree 1 to the queue since they will be the leaf nodes and leaf nodes can't form the minimum height tree
+        for(int i = 0; i < n; i++){
+            if(indegree[i] == 1){
+                q.push(i);
+                indegree[i]--;
+            }
+        }
+
+        vector<int> output;
+
+        while(!q.empty()){
+            int count = q.size();
+
+            // If the queue is not empty then clear output since there is still a better answer with even lesser height
+            output.clear();
+
+            // Loop through all the leaf nodes and check the neighbours of those whose degree is 1
+            while(count > 0){
+                int curr = q.front();
+                q.pop();
+
+                output.push_back(curr);
+
+                for(int edge: adj[curr]){
+                    indegree[edge]--;
+
+                    if(indegree[edge] == 1){
+                        q.push(edge);
+                    }
+                }
+
+                count--;
+            }
+
+        }
+
+        return output;
+    }
+};
