@@ -25,3 +25,26 @@ public:
         return min(dp[n-1], dp[n-2]);
     }
 };
+
+// Improved
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+
+        if(n == 2){
+            return min(cost[0], cost[1]);
+        }
+
+        int prev = cost[0];
+        int curr = cost[1];
+
+        for(int i = 2; i < n; i++){
+            int temp = cost[i] + min(prev, curr);
+            prev = curr;
+            curr = temp;
+        }
+
+        return min(prev, curr);
+    }
+};
