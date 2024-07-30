@@ -46,3 +46,46 @@ public:
         return output;
     }
 };
+
+// DP Top Down Approach using Memoization (Uses static array)
+class Solution {
+public:
+    int dp[13][10001];
+    int coinChange(vector<int>& coins, int amount) {
+        memset(dp, -1, sizeof(dp));
+
+        int output = coinChange(coins, 0, amount);
+
+        return output == INT_MAX - 1 ? -1 : output;
+    }
+
+    int coinChange(vector<int>& coins, int curr, int amount){
+        if(curr >= coins.size() || amount < 0){
+            return INT_MAX - 1;
+        }
+
+        if(amount == 0){
+            return 0;
+        }
+
+        if(dp[curr][amount] != -1){
+            return dp[curr][amount];
+        }
+
+        int output = -1;
+
+        if(coins[curr] > amount){
+            int dontTakeCoin = coinChange(coins, curr+1, amount);
+            output = dontTakeCoin;
+        }
+        else{
+            int takeCoin = 1 + coinChange(coins, curr, amount - coins[curr]);
+            int dontTakeCoin = coinChange(coins, curr+1, amount);
+            output = min(takeCoin, dontTakeCoin);
+        }
+        
+        dp[curr][amount] = output;
+
+        return dp[curr][amount];
+    }
+};
