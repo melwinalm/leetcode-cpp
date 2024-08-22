@@ -25,3 +25,22 @@ public:
         return output;
     }
 };
+
+// Using Kadane's Algorithm
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n, 0);
+
+        int maxSoFar = nums[0];
+        int currSum = nums[0];
+
+        for(int i = 1; i < n; i++){
+            currSum = max(nums[i], currSum + nums[i]);
+            maxSoFar = max(maxSoFar, currSum);
+        }
+
+        return maxSoFar;
+    }
+};
