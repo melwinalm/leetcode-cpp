@@ -27,3 +27,33 @@ public:
         return st.size() == 0;
     }
 };
+
+// Elegant solution
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+
+        for(char c: s){
+            if(c == '('){
+                st.push(')');
+            }
+            else if(c == '['){
+                st.push(']');
+            }
+            else if(c == '{'){
+                st.push('}');
+            }
+            else{
+                if(st.size() > 0 && c == st.top()){
+                    st.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+
+        return st.size() == 0;
+    }
+};
