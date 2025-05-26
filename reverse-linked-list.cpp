@@ -7,15 +7,11 @@ Link: https://leetcode.com/problems/reverse-linked-list/
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if(head == NULL || head->next == NULL){
-            return head;
-        }
-
         ListNode* prev = NULL;
         ListNode* curr = head;
-        ListNode* next = head->next;
+        ListNode* next;
 
-        while(curr){
+        while(curr != NULL){
             next = curr->next;
             curr->next = prev;
             prev = curr;
